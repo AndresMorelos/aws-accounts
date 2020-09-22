@@ -1,7 +1,7 @@
 const fs = require('fs');
 const os = require('os');
 const path = require('path')
-const { VERIFICATIONS, TYPES, ATTRIBUTES } = require('./constants')
+const { VERIFICATIONS, TYPES, ATTRIBUTES, GENERAL_OPTIONS } = require('./constants')
 
 const parser = {
     _name_regex: new RegExp('^([A-Za-z0-9\-]+)(([A-Za-z0-9\-]+)?)+$'),
@@ -90,23 +90,75 @@ const parser = {
                 break;
         }
     },
-    add_profile: (name, access_key, secret_access_key) => {
-        if (name && access_key && secret_access_key) {
+    add_profile: (name, options) => {
+        this.options = {
+            access_key: options.access_key === undefined ? null : options.access_key,
+            secret_access_key: options.secret_access_key === undefined ? null : options.secret_access_key,
+            region: options.region === undefined ? null : options.region,
+            output: options.output === undefined ? GENERAL_OPTIONS.OUTPUT.JSON : options.output,
+            cli_timestamp_format: options.cli_timestamp_format === undefined ? GENERAL_OPTIONS.CLI_TIMESTAMP_FORMAT.NONE : options.cli_timestamp_format,
+            cli_follow_urlparam: options.cli_follow_urlparam === undefined ? true : options.cli_follow_urlparam,
+            ca_bundle: options.ca_bundle === undefined ? null : options.ca_bundle,
+            parameter_validation: options.parameter_validation === undefined ? true : options.parameter_validation,
+            tcp_keepalive: options.tcp_keepalive === undefined ? true : options.tcp_keepalive,
+            max_attempts: options.max_attempts === undefined ? null : options.max_attempts,
+            retry_mode: options.retry_mode === undefined ? null : options.retry_mode
+        }
+        if (name && options.access_key && options.secret_access_key) {
             if (parser._name_regex.test(name)) {
-                return parser.credentials.push({
+                let new_profile = {
                     type: TYPES.PROFILE,
                     name: `[${name}]`,
-                    attributes: [{
+                    attributes: []
+                }
+
+                for (const [key, value] of Object.entries(this.options)) {
+                    let attribute = {
                         type: TYPES.ATTRIBUTE,
-                        key: ATTRIBUTES.AWS_ACCESS_KEY_ID,
-                        value: access_key
-                    },
-                    {
-                        type: TYPES.ATTRIBUTE,
-                        key: ATTRIBUTES.AWS_SECRET_ACCESS_KEY,
-                        value: secret_access_key
-                    }]
-                })
+                        key: null,
+                        value: value
+                    }
+
+                    if (value != null) {
+                        switch (key) {
+                            case 'access_key':
+                                attribute.key = ATTRIBUTES.AWS_ACCESS_KEY_ID
+                                break;
+                            case 'secret_access_key':
+                                attribute.key = ATTRIBUTES.AWS_SECRET_ACCESS_KEY
+                                break;
+                            case 'region':
+                                attribute.key = ATTRIBUTES.REGION
+                                break;
+                            case 'output':
+                                attribute.key = ATTRIBUTES.OUTPUT
+                                break;
+                            case 'cli_timestamp_format':
+                                attribute.key = ATTRIBUTES.CLI_TIMESTAMP_FORMAT
+                                break;
+                            case 'cli_follow_urlparam':
+                                attribute.key = ATTRIBUTES.CLI_FOLLOW_URLPARAM
+                                break;
+                            case 'ca_bundle':
+                                attribute.key = ATTRIBUTES.CA_BUNDLE
+                                break;
+                            case 'parameter_validation':
+                                attribute.key = ATTRIBUTES.PARAMETER_VALIDATION
+                                break;
+                            case 'tcp_keepalive':
+                                attribute.key = ATTRIBUTES.TCP_KEEPALIVE
+                                break;
+                            case 'max_attempts':
+                                attribute.key = ATTRIBUTES.MAX_ATTEMPTS
+                                break;
+                            case 'retry_mode':
+                                attribute.key = ATTRIBUTES.RETRY_MODE
+                                break;
+                        }
+                        new_profile.attributes.push(attribute)
+                    }
+                }
+                return parser.credentials.push(new_profile)
             }
             throw new Error(`The name of the new profile needs to follow the pattern of number plus letters separated by dashes`)
         }
@@ -128,7 +180,7 @@ const parser = {
                     file_stream.write(profiles);
                     file_stream.end();
                 });
-                file_stream.on('end', function (fd){
+                file_stream.on('end', function (fd) {
                     file_stream.close()
                 })
             })
@@ -152,7 +204,7 @@ const parser = {
                     file_stream.write(JSON.stringify(parser.credentials, null, 2));
                     file_stream.end();
                 });
-                file_stream.on('end', function (fd){
+                file_stream.on('end', function (fd) {
                     file_stream.close()
                 })
             })
