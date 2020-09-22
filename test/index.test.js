@@ -35,4 +35,9 @@ describe('Test parser functionality', () => {
         parser.import_credentials('./test/objects/credentials.json')
         assert.strictEqual(parser.save_file(),1)
     })
+
+    it('Export loaded credentials', () => {
+        parser.import_credentials('./test/objects/credentials.json')
+        assert.strictEqual(parser.export_credentials('./test/exports'),1)
+    })
 })
