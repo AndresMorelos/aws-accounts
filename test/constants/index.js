@@ -148,6 +148,61 @@ module.exports = {
             ]
         }
     ],
+    edit_profile_dump_credentials: [
+        {
+            "type": "PROFILE",
+            "name": "[default-andres]",
+            "attributes": [
+                {
+                    "type": "ATTRIBUTE",
+                    "key": "aws_access_key_id",
+                    "value": "AM_TEST"
+                },
+                {
+                    "type": "ATTRIBUTE",
+                    "key": "aws_secret_access_key",
+                    "value": "<DEFAULT_SECRET_ACCESS_KEY>"
+                }
+            ]
+        },
+        {
+            "type": "PROFILE",
+            "name": "[personal-account]",
+            "attributes": [
+                {
+                    "type": "ATTRIBUTE",
+                    "key": "aws_access_key_id",
+                    "value": "<PERSONAL_ACCESS_KEY_ID>"
+                },
+                {
+                    "type": "ATTRIBUTE",
+                    "key": "aws_secret_access_key",
+                    "value": "<PERSONAL_SECRET_ACCESS_KEY>"
+                }
+            ]
+        },
+        {
+            "type": "PROFILE",
+            "name": "[work-account]",
+            "attributes": [
+                {
+                    "type": "ATTRIBUTE",
+                    "key": "aws_access_key_id",
+                    "value": "<WORK_ACCESS_KEY_ID>"
+                },
+                {
+                    "type": "ATTRIBUTE",
+                    "key": "aws_secret_access_key",
+                    "value": "<WORK_SECRET_ACCESS_KEY>"
+                },
+                {
+                    "type": "ATTRIBUTE",
+                    "key": "aws_secret_access_key_TEST",
+                    "value": "<WORK_SECRET_ACCESS_KEY_TEST>"
+                }
+            ]
+        }
+    ],
     serialize_credentials: '[default]\n' +
         'aws_access_key_id = <DEFAULT_ACCESS_KEY_ID>\n' +
         'aws_secret_access_key = <DEFAULT_SECRET_ACCESS_KEY>\n' +
