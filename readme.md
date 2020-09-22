@@ -31,6 +31,14 @@ npm i manage-aws-credentials
 > **NOTE:** The profile name needs to accomplish the next regex ^([A-Za-z0-9\-]+)(([A-Za-z0-9\-]+)?)+$ *(number and letters separated by dashes)*
 
 
+### Edit a existing profile
+```js
+ const AWSCredentials = require('manage-aws-credentials');
+
+ AWSCredentials.edit_profile('PROFILE-NAME','NEW-PROFILE-NAME',options)
+```
+> **NOTE:** The new profile name needs to accomplish the next regex ^([A-Za-z0-9\-]+)(([A-Za-z0-9\-]+)?)+$ *(number and letters separated by dashes)*
+
 ### Options 
 
 | Option               | Config Entry          | Type           | Default |

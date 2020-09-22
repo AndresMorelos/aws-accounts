@@ -1,6 +1,6 @@
 const parser = require('../src')
 const assert = require('assert')
-const { deserialize_dump_credentials, import_dump_credentials, add_profile_dump_credentials, serialize_credentials } = require('./constants')
+const { deserialize_dump_credentials, import_dump_credentials, add_profile_dump_credentials, serialize_credentials, edit_profile_dump_credentials } = require('./constants')
 
 
 beforeEach(() => {
@@ -38,5 +38,11 @@ describe('Test parser functionality', () => {
     it('Export loaded credentials', () => {
         parser.import_credentials('./test/objects/credentials.json')
         assert.strictEqual(parser.export_credentials('./test/exports'), 1)
+    })
+
+    it('Edit a existing profile', () => {
+        parser.import_credentials('./test/objects/credentials.json')
+        parser.edit_profile('default', 'default-andres', { access_key: 'AM_TEST' })
+        assert.deepStrictEqual(parser.credentials, edit_profile_dump_credentials)
     })
 })
