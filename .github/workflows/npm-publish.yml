@@ -4,8 +4,13 @@
 name: Publish Package
 
 on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Test scenario tags'
   release:
     types: [created]
+  
 
 jobs:
   build:
