@@ -117,8 +117,8 @@ const parser = {
             const profiles = parser.serialize_credentials()
             fs.access(parser._credentials_default_directory, (err) => {
                 if (err) {
-                    fs.mkdir(parser._credentials_default_directory, (err) => {
-                        if(err){
+                    fs.mkdir(parser._credentials_default_directory, (_err) => {
+                        if (_err) {
                             throw new Error(`Error at create .aws directory`)
                         }
                     })
@@ -128,8 +128,34 @@ const parser = {
                     file_stream.write(profiles);
                     file_stream.end();
                 });
+                file_stream.on('end', function (fd){
+                    file_stream.close()
+                })
             })
 
+            return 1
+        }
+        throw new Error(`There are no profiles loaded`)
+    },
+    export_credentials: (export_path) => {
+        if (parser.credentials && Array.isArray(parser.credentials) && parser.credentials.length > 0) {
+            fs.access(export_path, (err) => {
+                if (err) {
+                    fs.mkdir(export_path, (_err) => {
+                        if (_err) {
+                            throw new Error(`Error at create .aws directory`)
+                        }
+                    })
+                }
+                const file_stream = fs.createWriteStream(path.join(export_path, `AWS_credentials_dump_${new Date().toLocaleTimeString()}.json`), { flags: 'w+', encoding: 'utf-8', overwrite: true });
+                file_stream.once('open', function (fd) {
+                    file_stream.write(JSON.stringify(parser.credentials, null, 2));
+                    file_stream.end();
+                });
+                file_stream.on('end', function (fd){
+                    file_stream.close()
+                })
+            })
             return 1
         }
         throw new Error(`There are no profiles loaded`)
