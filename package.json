@@ -24,7 +24,7 @@
     "url": "https://github.com/AndresMorelos/manage-aws-credentials/issues"
   },
   "homepage": "https://github.com/AndresMorelos/manage-aws-credentials#readme",
-  "dependencies": {
+  "devDependencies": {
     "mocha": "^8.1.3"
   }
 }
