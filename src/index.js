@@ -1,10 +1,11 @@
 const fs = require('fs');
-const os = require('os')
+const os = require('os');
 const path = require('path')
 const { VERIFICATIONS, TYPES, ATTRIBUTES } = require('./constants')
 
 const parser = {
     _name_regex: new RegExp('^([A-Za-z0-9\-]+)(([A-Za-z0-9\-]+)?)+$'),
+    _credentials_default_directory: path.join(os.homedir(), '.aws'),
     credentials: [],
     credentials_default_path: path.join(os.homedir(), '.aws', 'credentials'),
     deserialize_credentials: (credentials_file_path) => {
@@ -91,7 +92,7 @@ const parser = {
     },
     add_profile: (name, access_key, secret_access_key) => {
         if (name && access_key && secret_access_key) {
-            if(parser._name_regex.test(name)){
+            if (parser._name_regex.test(name)) {
                 return parser.credentials.push({
                     type: TYPES.PROFILE,
                     name: `[${name}]`,
@@ -110,6 +111,28 @@ const parser = {
             throw new Error(`The name of the new profile needs to follow the pattern of number plus letters separated by dashes`)
         }
         throw new Error(`To create a new profile a name, access key, and secret access key are needed`)
+    },
+    save_file: () => {
+        if (parser.credentials.length > 0) {
+            const profiles = parser.serialize_credentials()
+            fs.access(parser._credentials_default_directory, (err) => {
+                if (err) {
+                    fs.mkdir(parser._credentials_default_directory, (err) => {
+                        if(err){
+                            throw new Error(`Error at create .aws directory`)
+                        }
+                    })
+                }
+                const file_stream = fs.createWriteStream(parser.credentials_default_path, { flags: 'w+', encoding: 'utf-8', overwrite: true });
+                file_stream.once('open', function (fd) {
+                    file_stream.write(profiles);
+                    file_stream.end();
+                });
+            })
+
+            return 1
+        }
+        throw new Error(`There are no profiles loaded`)
     }
 }
 

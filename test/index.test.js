@@ -30,4 +30,9 @@ describe('Test parser functionality', () => {
         const credentials_serialized = parser.serialize_credentials();
         assert.strictEqual(credentials_serialized,serialize_credentials)
     })
+
+    it('Save loaded credentials', () => {
+        parser.import_credentials('./test/objects/credentials.json')
+        assert.strictEqual(parser.save_file(),1)
+    })
 })
