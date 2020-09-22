@@ -1,113 +1,7 @@
-const parser = require('../src/index')
+const parser = require('../src')
 const assert = require('assert')
+const { deserialize_dump_credentials, import_dump_credentials, add_profile_dump_credentials, serialize_credentials } = require('./constants')
 
-
-const deserialize_dump_credentials = [
-    {
-        "type": "PROFILE",
-        "name": "[default]",
-        "attributes": [
-            {
-                "type": "ATTRIBUTE",
-                "key": "aws_access_key_id",
-                "value": "<DEFAULT_ACCESS_KEY_ID>"
-            },
-            {
-                "type": "ATTRIBUTE",
-                "key": "aws_secret_access_key",
-                "value": "<DEFAULT_SECRET_ACCESS_KEY>"
-            }
-        ]
-    },
-    {
-        "type": "PROFILE",
-        "name": "[personal-account]",
-        "attributes": [
-            {
-                "type": "ATTRIBUTE",
-                "key": "aws_access_key_id",
-                "value": "<PERSONAL_ACCESS_KEY_ID>"
-            },
-            {
-                "type": "ATTRIBUTE",
-                "key": "aws_secret_access_key",
-                "value": "<PERSONAL_SECRET_ACCESS_KEY>"
-            }
-        ]
-    },
-    {
-        "type": "PROFILE",
-        "name": "[work-account]",
-        "attributes": [
-            {
-                "type": "ATTRIBUTE",
-                "key": "aws_access_key_id",
-                "value": "<WORK_ACCESS_KEY_ID>"
-            },
-            {
-                "type": "ATTRIBUTE",
-                "key": "aws_secret_access_key",
-                "value": "<WORK_SECRET_ACCESS_KEY>"
-            }
-        ]
-    }
-]
-
-const import_dump_credentials = [
-    {
-        "type": "PROFILE",
-        "name": "[default]",
-        "attributes": [
-            {
-                "type": "ATTRIBUTE",
-                "key": "aws_access_key_id",
-                "value": "<DEFAULT_ACCESS_KEY_ID>"
-            },
-            {
-                "type": "ATTRIBUTE",
-                "key": "aws_secret_access_key",
-                "value": "<DEFAULT_SECRET_ACCESS_KEY>"
-            }
-        ]
-    },
-    {
-        "type": "PROFILE",
-        "name": "[personal-account]",
-        "attributes": [
-            {
-                "type": "ATTRIBUTE",
-                "key": "aws_access_key_id",
-                "value": "<PERSONAL_ACCESS_KEY_ID>"
-            },
-            {
-                "type": "ATTRIBUTE",
-                "key": "aws_secret_access_key",
-                "value": "<PERSONAL_SECRET_ACCESS_KEY>"
-            }
-        ]
-    },
-    {
-        "type": "PROFILE",
-        "name": "[work-account]",
-        "attributes": [
-            {
-                "type": "ATTRIBUTE",
-                "key": "aws_access_key_id",
-                "value": "<WORK_ACCESS_KEY_ID>"
-            },
-            {
-                "type": "ATTRIBUTE",
-                "key": "aws_secret_access_key",
-                "value": "<WORK_SECRET_ACCESS_KEY>"
-            },
-            {
-                "type": "ATTRIBUTE",
-                "key": "aws_secret_access_key_TEST",
-                "value": "<WORK_SECRET_ACCESS_KEY_TEST>"
-            }
-        ]
-    }
-]
 
 beforeEach(() => {
     parser.credentials = []
@@ -117,12 +11,23 @@ describe('Test parser functionality', () => {
     it('Deserialize credentials file', () => {
         parser.deserialize_credentials('./test/objects/credentials')
         assert.deepStrictEqual(parser.credentials, deserialize_dump_credentials)
-       
+
     })
 
     it('Import credentials json file', () => {
         parser.import_credentials('./test/objects/credentials.json')
         assert.deepStrictEqual(parser.credentials, import_dump_credentials)
-      
+    })
+
+    it('Add a new profile', () => {
+        const result = parser.add_profile('TEST-PROFILE', 'TEST_PROFILE', 'SECRET_KEY')
+        assert.deepStrictEqual(parser.credentials, add_profile_dump_credentials)
+        assert.strict(result, 1)
+    })
+
+    it('Serialize the loaded profiles', () => {
+        parser.deserialize_credentials('./test/objects/credentials')
+        const credentials_serialized = parser.serialize_credentials();
+        assert.strictEqual(credentials_serialized,serialize_credentials)
     })
 })
