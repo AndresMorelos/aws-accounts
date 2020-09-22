@@ -26,9 +26,27 @@ npm i manage-aws-credentials
 ```js
  const AWSCredentials = require('manage-aws-credentials');
 
- AWSCredentials.add_profile('PROFILE-NAME','ACCESS_KEY','SECRET_ACCESS_KEY')
+ AWSCredentials.add_profile('PROFILE-NAME',options)
 ```
 > **NOTE:** The profile name needs to accomplish the next regex ^([A-Za-z0-9\-]+)(([A-Za-z0-9\-]+)?)+$ *(number and letters separated by dashes)*
+
+
+### Options 
+
+| Option               | Config Entry          | Type           | Default |
+|----------------------|-----------------------|----------------|---------|
+| access_key           | aws_access_key_id     | String         | null    |
+| secret_access_key    | aws_secret_access_key | String         | null    |
+| region               | region                | String         | null    |
+| output               | output                | String         | json    |
+| cli_timestamp_format | cli_timestamp_format  | String         | none    |
+| cli_follow_urlparam  | cli_follow_urlparam   | Boolean        | true    |
+| ca_bundle            | ca_bundle             | String \| Path | null    |
+| parameter_validation | parameter_validation  | Boolean        | true    |
+| tcp_keepalive        | tcp_keepalive         | Boolean        | true    |
+| max_attempts         | max_attempts          | Number         | null    |
+| retry_mode           | retry_mode            | String         | null    |
+
 
 ### Save the current profiles to the aws file
 

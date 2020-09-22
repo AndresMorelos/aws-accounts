@@ -20,24 +20,23 @@ describe('Test parser functionality', () => {
     })
 
     it('Add a new profile', () => {
-        const result = parser.add_profile('TEST-PROFILE', 'TEST_PROFILE', 'SECRET_KEY')
+        parser.add_profile('TEST-PROFILE', { access_key: 'TEST_PROFILE', secret_access_key: 'SECRET_KEY' })
         assert.deepStrictEqual(parser.credentials, add_profile_dump_credentials)
-        assert.strict(result, 1)
     })
 
     it('Serialize the loaded profiles', () => {
         parser.deserialize_credentials('./test/objects/credentials')
         const credentials_serialized = parser.serialize_credentials();
-        assert.strictEqual(credentials_serialized,serialize_credentials)
+        assert.strictEqual(credentials_serialized, serialize_credentials)
     })
 
     it('Save loaded credentials', () => {
         parser.import_credentials('./test/objects/credentials.json')
-        assert.strictEqual(parser.save_file(),1)
+        assert.strictEqual(parser.save_file(), 1)
     })
 
     it('Export loaded credentials', () => {
         parser.import_credentials('./test/objects/credentials.json')
-        assert.strictEqual(parser.export_credentials('./test/exports'),1)
+        assert.strictEqual(parser.export_credentials('./test/exports'), 1)
     })
 })

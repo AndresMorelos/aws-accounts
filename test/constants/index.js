@@ -119,6 +119,31 @@ module.exports = {
                     "type": "ATTRIBUTE",
                     "key": "aws_secret_access_key",
                     "value": "SECRET_KEY"
+                },
+                {
+                    "key": "output",
+                    "type": "ATTRIBUTE",
+                    "value": "json"
+                },
+                {
+                    "key": "cli_timestamp_format",
+                    "type": "ATTRIBUTE",
+                    "value": "none"
+                },
+                {
+                    "key": "cli_follow_urlparam",
+                    "type": "ATTRIBUTE",
+                    "value": true
+                },
+                {
+                    "key": "parameter_validation",
+                    "type": "ATTRIBUTE",
+                    "value": true
+                },
+                {
+                    "key": "tcp_keepalive",
+                    "type": "ATTRIBUTE",
+                    "value": true
                 }
             ]
         }
