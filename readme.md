@@ -48,4 +48,12 @@ npm i manage-aws-credentials
  AWSCredentials.import_credentials('./path/to/the/file.json');
 ```
 
-> **NOTE:** The JSON file to import needs to satisfy the package serialization (The export of the loaded profiles to a JSON file will be implemented on the further version)
+> **NOTE:** The JSON file to import needs to satisfy the package serialization
+
+### Export JSON profile file
+
+```js
+ const AWSCredentials = require('manage-aws-credentials');
+
+ AWSCredentials.export_credentials('./path/to/the/location/');
+```
