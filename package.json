@@ -1,0 +1,30 @@
+{
+  "name": "manage-aws-credentials",
+  "version": "1.0.0",
+  "description": "Manage your AWS credentials from CLI",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndresMorelos/manage-aws-credentials.git"
+  },
+  "keywords": [
+    "AWS",
+    "CLI",
+    "PROFILES"
+  ],
+  "author": "Andres Morelos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AndresMorelos/manage-aws-credentials/issues"
+  },
+  "homepage": "https://github.com/AndresMorelos/manage-aws-credentials#readme",
+  "dependencies": {
+    "mocha": "^8.1.3"
+  }
+}
