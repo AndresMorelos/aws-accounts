@@ -4,8 +4,9 @@
 name: Publish Package
 
 on:
-  release:
-    type: [published]
+  push:
+    branches: 
+      - master
 
 jobs:
   build:
