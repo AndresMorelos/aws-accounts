@@ -6,6 +6,7 @@ const {
   add_profile_dump_credentials: addProfileDumpCredentials,
   serialize_credentials: serializeCredentials,
   edit_profile_dump_credentials: editProfileDumpCredentials,
+  delete_profile_dump_credentials: deleteProfileDumpCredentials,
 } = require('./constants');
 
 beforeEach(() => {
@@ -51,5 +52,11 @@ describe('Test parser functionality', () => {
     parser.import_credentials('./test/objects/credentials.json');
     parser.edit_profile('default', { access_key: 'AM_TEST', new_name: 'default-andres' });
     assert.deepStrictEqual(parser.getCredentials(), editProfileDumpCredentials);
+  });
+
+  it('Delete a existing profile', () => {
+    parser.import_credentials('./test/objects/credentials.json');
+    parser.delete_profile('personal-account');
+    assert.deepStrictEqual(parser.getCredentials(), deleteProfileDumpCredentials);
   });
 });
