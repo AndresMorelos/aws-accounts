@@ -10,7 +10,6 @@ const {
 const { get_attribute_list: getAttributeList, name_regex: nameRegex } = require('./utils');
 
 class Parser {
-
   constructor() {
     this.credentials = [];
     this.deserialize_credentials(credentialsDefaultPath);
@@ -142,8 +141,9 @@ class Parser {
     throw new Error(`To create a new profile a name, access key, and secret access key are needed`);
   }
 
-  edit_profile(name, newName, options) {
+  edit_profile(name, options) {
     const defaultOptions = {
+      new_name: options.new_name === undefined ? null : options.new_name,
       access_key: options.access_key === undefined ? null : options.access_key,
       secret_access_key: options.secret_access_key === undefined ? null : options.secret_access_key,
       region: options.region === undefined ? null : options.region,
@@ -159,37 +159,43 @@ class Parser {
       max_attempts: options.max_attempts === undefined ? null : options.max_attempts,
       retry_mode: options.retry_mode === undefined ? null : options.retry_mode,
     };
-    if (nameRegex.test(newName)) {
-      if (this.credentials && Array.isArray(this.credentials) && this.credentials.length > 0) {
-        this.credentials = this.credentials.map((profile) => {
-          if (profile.name === `[${name}]`) {
-            profile.name = `[${newName}]`;
-            let newAttributes = getAttributeList(defaultOptions);
-            profile.attributes = profile.attributes.map((attribute) => {
-              const [newAttribute] = newAttributes.filter(
-                (newAttributeDetail) => newAttributeDetail.key === attribute.key
-              );
-              if (
-                newAttribute !== null &&
-                newAttribute !== undefined &&
-                newAttribute.key !== null &&
-                newAttribute.key !== undefined &&
-                newAttribute.key === attribute.key &&
-                newAttribute.value !== attribute.value
-              ) {
-                attribute.value = newAttribute.value;
-              }
-              return attribute;
-            });
+
+    if (this.credentials && Array.isArray(this.credentials) && this.credentials.length > 0) {
+      this.credentials = this.credentials.map((profile) => {
+        if (profile.name === `[${name}]`) {
+          if (
+            defaultOptions.new_name &&
+            defaultOptions.new_name !== null &&
+            defaultOptions.new_name !== undefined &&
+            nameRegex.test(defaultOptions.new_name)
+          ) {
+            profile.name = `[${defaultOptions.new_name}]`;
+          } else {
+            throw new Error(
+              `The name of the new profile needs to follow the pattern of number plus letters separated by dashes`
+            );
           }
-          return profile;
-        });
-      }
-      return;
+          const newAttributes = getAttributeList(defaultOptions);
+          profile.attributes = profile.attributes.map((attribute) => {
+            const [newAttribute] = newAttributes.filter(
+              (newAttributeDetail) => newAttributeDetail.key === attribute.key
+            );
+            if (
+              newAttribute !== null &&
+              newAttribute !== undefined &&
+              newAttribute.key !== null &&
+              newAttribute.key !== undefined &&
+              newAttribute.key === attribute.key &&
+              newAttribute.value !== attribute.value
+            ) {
+              attribute.value = newAttribute.value;
+            }
+            return attribute;
+          });
+        }
+        return profile;
+      });
     }
-    throw new Error(
-      `The name of the new profile needs to follow the pattern of number plus letters separated by dashes`
-    );
   }
 
   save_file() {

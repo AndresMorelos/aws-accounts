@@ -1,6 +1,6 @@
 {
   "name": "manage-aws-credentials",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Manage your AWS credentials programatically",
   "main": "src/index.js",
   "directories": {
@@ -15,7 +15,7 @@
   },
   "keywords": [
     "AWS",
-    "CLI",
+    "MANAGEMENT",
     "PROFILES"
   ],
   "author": "Andres Morelos",
