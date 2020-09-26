@@ -1,4 +1,3 @@
-const { throws } = require('assert');
 const fs = require('fs');
 const path = require('path');
 const {
@@ -11,9 +10,9 @@ const {
 const { get_attribute_list: getAttributeList, name_regex: nameRegex } = require('./utils');
 
 class Parser {
-  #credentials;
+
   constructor() {
-    this.#credentials = [];
+    this.credentials = [];
     this.deserialize_credentials(credentialsDefaultPath);
   }
 
@@ -64,13 +63,13 @@ class Parser {
 
       this.cleanCredentials();
       // Load credentials object
-      this.#credentials.push(...profilesData);
+      this.credentials.push(...profilesData);
     } catch (error) {}
   }
 
   serialize_credentials() {
-    if (this.#credentials && Array.isArray(this.#credentials)) {
-      const profiles = this.#credentials
+    if (this.credentials && Array.isArray(this.credentials)) {
+      const profiles = this.credentials
         .map((_object) => {
           return this.paser_object(_object);
         })
@@ -87,7 +86,7 @@ class Parser {
 
       // Load credentials object
       this.cleanCredentials();
-      this.#credentials.push(...Array.from(JSON.parse(fileData)));
+      this.credentials.push(...Array.from(JSON.parse(fileData)));
     } catch (error) {}
   }
 
@@ -134,7 +133,7 @@ class Parser {
           name: `[${name}]`,
           attributes: [...getAttributeList(defaultOptions)],
         };
-        return this.#credentials.push(newProfile);
+        return this.credentials.push(newProfile);
       }
       throw new Error(
         `The name of the new profile needs to follow the pattern of number plus letters separated by dashes`
@@ -161,8 +160,8 @@ class Parser {
       retry_mode: options.retry_mode === undefined ? null : options.retry_mode,
     };
     if (nameRegex.test(newName)) {
-      if (this.#credentials && Array.isArray(this.#credentials) && this.#credentials.length > 0) {
-        this.#credentials = this.#credentials.map((profile) => {
+      if (this.credentials && Array.isArray(this.credentials) && this.credentials.length > 0) {
+        this.credentials = this.credentials.map((profile) => {
           if (profile.name === `[${name}]`) {
             profile.name = `[${newName}]`;
             let newAttributes = getAttributeList(defaultOptions);
@@ -194,7 +193,7 @@ class Parser {
   }
 
   save_file() {
-    if (this.#credentials.length > 0) {
+    if (this.credentials.length > 0) {
       const profiles = this.serialize_credentials();
       fs.access(credentialsDefaultDirectory, (err) => {
         if (err) {
@@ -224,7 +223,7 @@ class Parser {
   }
 
   export_credentials(exportPath) {
-    if (this.#credentials && Array.isArray(this.#credentials) && this.#credentials.length > 0) {
+    if (this.credentials && Array.isArray(this.credentials) && this.credentials.length > 0) {
       fs.access(exportPath, (err) => {
         if (err) {
           fs.mkdir(exportPath, (_err) => {
@@ -238,7 +237,7 @@ class Parser {
           { flags: 'w+', encoding: 'utf-8', overwrite: true }
         );
         fileStream.once('open', () => {
-          fileStream.write(JSON.stringify(this.#credentials, null, 2));
+          fileStream.write(JSON.stringify(this.credentials, null, 2));
           fileStream.end();
         });
         fileStream.on('end', () => {
@@ -251,11 +250,11 @@ class Parser {
   }
 
   getCredentials() {
-    return this.#credentials;
+    return this.credentials;
   }
 
   cleanCredentials() {
-    this.#credentials = [];
+    this.credentials = [];
   }
 }
 
