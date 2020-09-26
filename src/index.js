@@ -198,6 +198,12 @@ class Parser {
     }
   }
 
+  delete_profile(name) {
+    if (this.credentials && Array.isArray(this.credentials) && this.credentials.length > 0) {
+      this.credentials = this.credentials.filter((profile) => profile.name !== `[${name}]`);
+    }
+  }
+
   save_file() {
     if (this.credentials.length > 0) {
       const profiles = this.serialize_credentials();
