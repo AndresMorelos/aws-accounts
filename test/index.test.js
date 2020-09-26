@@ -49,7 +49,7 @@ describe('Test parser functionality', () => {
 
   it('Edit a existing profile', () => {
     parser.import_credentials('./test/objects/credentials.json');
-    parser.edit_profile('default', 'default-andres', { access_key: 'AM_TEST' });
+    parser.edit_profile('default', { access_key: 'AM_TEST', new_name: 'default-andres' });
     assert.deepStrictEqual(parser.getCredentials(), editProfileDumpCredentials);
   });
 });
