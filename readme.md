@@ -1,9 +1,8 @@
 # Manage AWS Credentials
 
-
 ### How to install?
 
-```sh
+``` sh
 npm i manage-aws-credentials
 ```
 
@@ -11,7 +10,7 @@ npm i manage-aws-credentials
 
 ### Load profiles from an existing file
 
-```js
+``` js
  const AWSCredentials = require('manage-aws-credentials');
 
  AWSCredentials.deserialize_credentials('./path/to/the/file');
@@ -19,15 +18,14 @@ npm i manage-aws-credentials
 
 > **Note:** By the fault the package load the profiles from the default file see [https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-shared.html](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-shared.html)
 
-
 ### Add a new profile
 
-
-```js
+``` js
  const AWSCredentials = require('manage-aws-credentials');
 
- AWSCredentials.add_profile('PROFILE-NAME',options)
+ AWSCredentials.add_profile('PROFILE-NAME', options)
 ```
+
 > **NOTE:** The profile name needs to accomplish the next regex ^([A-Za-z0-9\-]+)(([A-Za-z0-9\-]+)?)+$ *(number and letters separated by dashes)*
 
 ### Accepted Options 
@@ -46,13 +44,14 @@ npm i manage-aws-credentials
 | max_attempts         | max_attempts          | Number         | null    |
 | retry_mode           | retry_mode            | String         | null    |
 
-
 ### Edit a existing profile
-```js
+
+``` js
  const AWSCredentials = require('manage-aws-credentials');
 
- AWSCredentials.edit_profile('PROFILE-NAME',options)
+ AWSCredentials.edit_profile('PROFILE-NAME', options)
 ```
+
 > **NOTE:** The new profile name needs to accomplish the next regex ^([A-Za-z0-9\-]+)(([A-Za-z0-9\-]+)?)+$ *(number and letters separated by dashes)*
 
 ### Accepted Options 
@@ -72,10 +71,17 @@ npm i manage-aws-credentials
 | retry_mode           | retry_mode            | String         | null    |
 | new_name             |                       | String         | null    |
 
+### Remove a profile
+
+``` js
+ const AWSCredentials = require('manage-aws-credentials');
+
+ AWSCredentials.delete_profile('NAME');
+```
 
 ### Save the current profiles to the aws file
 
-```js
+``` js
  const AWSCredentials = require('manage-aws-credentials');
 
  AWSCredentials.save_file();
@@ -85,7 +91,7 @@ npm i manage-aws-credentials
 
 ### Import JSON profile file
 
-```js
+``` js
  const AWSCredentials = require('manage-aws-credentials');
 
  AWSCredentials.import_credentials('./path/to/the/file.json');
@@ -95,7 +101,7 @@ npm i manage-aws-credentials
 
 ### Export JSON profile file
 
-```js
+``` js
  const AWSCredentials = require('manage-aws-credentials');
 
  AWSCredentials.export_credentials('./path/to/the/location/');

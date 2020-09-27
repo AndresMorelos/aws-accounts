@@ -128,7 +128,7 @@ module.exports = {
         {
           key: 'cli_timestamp_format',
           type: 'ATTRIBUTE',
-          value: 'none',
+          value: 'wire',
         },
         {
           key: 'cli_follow_urlparam',

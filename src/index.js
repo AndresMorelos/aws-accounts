@@ -113,7 +113,7 @@ class Parser {
       output: options.output === undefined ? GENERAL_OPTIONS.OUTPUT.JSON : options.output,
       cli_timestamp_format:
         options.cli_timestamp_format === undefined
-          ? GENERAL_OPTIONS.CLI_TIMESTAMP_FORMAT.NONE
+          ? GENERAL_OPTIONS.CLI_TIMESTAMP_FORMAT.WIRE
           : options.cli_timestamp_format,
       cli_follow_urlparam:
         options.cli_follow_urlparam === undefined ? true : options.cli_follow_urlparam,

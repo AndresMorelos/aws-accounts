@@ -31,7 +31,7 @@ module.exports = {
       TEXT: 'text',
     },
     CLI_TIMESTAMP_FORMAT: {
-      NONE: 'none',
+      WIRE: 'wire',
       ISO8601: 'iso8601',
     },
   },
