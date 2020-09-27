@@ -7,7 +7,11 @@ const {
   credentials_default_directory: credentialsDefaultDirectory,
   credentials_default_path: credentialsDefaultPath,
 } = require('./constants');
-const { get_attribute_list: getAttributeList, name_regex: nameRegex } = require('./utils');
+const {
+  get_attribute_list: getAttributeList,
+  get_attribute_option: getAttributeOption,
+  name_regex: nameRegex,
+} = require('./utils');
 
 class Parser {
   constructor() {
@@ -83,7 +87,7 @@ class Parser {
               name: currentProfile.name,
             };
             currentProfile.attributes.forEach((_attribute) => {
-              profileObject[_attribute.key] = _attribute.value;
+              profileObject[getAttributeOption(_attribute.key)] = _attribute.value;
             });
             profilesArray.push(profileObject);
             return profilesArray;
@@ -187,14 +191,15 @@ class Parser {
           if (
             defaultOptions.new_name &&
             defaultOptions.new_name !== null &&
-            defaultOptions.new_name !== undefined &&
-            nameRegex.test(defaultOptions.new_name)
+            defaultOptions.new_name !== undefined
           ) {
-            profile.name = `[${defaultOptions.new_name}]`;
-          } else {
-            throw new Error(
-              `The name of the new profile needs to follow the pattern of number plus letters separated by dashes`
-            );
+            if (nameRegex.test(defaultOptions.new_name)) {
+              profile.name = `[${defaultOptions.new_name}]`;
+            } else {
+              throw new Error(
+                `The name of the new profile needs to follow the pattern of number plus letters separated by dashes`
+              );
+            }
           }
           const newAttributes = getAttributeList(defaultOptions);
           profile.attributes = profile.attributes.map((attribute) => {
