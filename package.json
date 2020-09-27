@@ -1,6 +1,6 @@
 {
   "name": "manage-aws-credentials",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Manage your AWS credentials programatically",
   "main": "src/index.js",
   "directories": {

@@ -49,7 +49,6 @@ module.exports = {
       ],
     },
   ],
-
   import_dump_credentials: [
     {
       type: 'PROFILE',
@@ -242,7 +241,7 @@ module.exports = {
       ],
     },
   ],
-  serialize_credentials:
+  serialize_credentials_as_text:
     '[default]\n' +
     'aws_access_key_id = <DEFAULT_ACCESS_KEY_ID>\n' +
     'aws_secret_access_key = <DEFAULT_SECRET_ACCESS_KEY>\n' +
@@ -257,4 +256,21 @@ module.exports = {
     'aws_access_key_id = <WORK_ACCESS_KEY_ID>\n' +
     'aws_secret_access_key = <WORK_SECRET_ACCESS_KEY>\n' +
     '\n',
+  serialize_credentials_as_object: [
+    {
+      name: '[default]',
+      aws_access_key_id: '<DEFAULT_ACCESS_KEY_ID>',
+      aws_secret_access_key: '<DEFAULT_SECRET_ACCESS_KEY>',
+    },
+    {
+      name: '[personal-account]',
+      aws_access_key_id: '<PERSONAL_ACCESS_KEY_ID>',
+      aws_secret_access_key: '<PERSONAL_SECRET_ACCESS_KEY>',
+    },
+    {
+      name: '[work-account]',
+      aws_access_key_id: '<WORK_ACCESS_KEY_ID>',
+      aws_secret_access_key: '<WORK_SECRET_ACCESS_KEY>',
+    },
+  ],
 };

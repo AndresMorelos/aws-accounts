@@ -66,14 +66,35 @@ class Parser {
     } catch (error) {}
   }
 
-  serialize_credentials() {
+  serialize_credentials(format = 'text') {
     if (this.credentials && Array.isArray(this.credentials)) {
-      const profiles = this.credentials
-        .map((_object) => {
-          return this.paser_object(_object);
-        })
-        .join('\n');
-      return profiles;
+      switch (format) {
+        case 'text': {
+          const profiles = this.credentials
+            .map((_object) => {
+              return this.paser_object(_object);
+            })
+            .join('\n');
+          return profiles;
+        }
+        case 'object': {
+          const profiles = this.credentials.reduce((profilesArray, currentProfile) => {
+            const profileObject = {
+              name: currentProfile.name,
+            };
+            currentProfile.attributes.forEach((_attribute) => {
+              profileObject[_attribute.key] = _attribute.value;
+            });
+            profilesArray.push(profileObject);
+            return profilesArray;
+          }, []);
+
+          return profiles;
+        }
+
+        default:
+          break;
+      }
     }
     throw new Error(`There are no credentials loaded`);
   }
