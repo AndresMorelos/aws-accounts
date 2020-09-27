@@ -1,5 +1,10 @@
 # Manage AWS Credentials
 
+[![GitHub license](https://img.shields.io/github/license/AndresMorelos/manage-aws-credentials?style=flat-square)](https://github.com/AndresMorelos/manage-aws-credentials/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/AndresMorelos/manage-aws-credentials?style=flat-square)](https://github.com/AndresMorelos/manage-aws-credentials/stargazers)
+[![Version](https://img.shields.io/npm/v/manage-aws-credentials.svg?style=flat-square)](https://www.npmjs.com/package/manage-aws-credentials)
+[![npm](https://img.shields.io/npm/dw/manage-aws-credentials?style=flat-square)](https://www.npmjs.com/package/manage-aws-credentials)
+
 ### How to install?
 
 ```sh

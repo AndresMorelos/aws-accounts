@@ -1,6 +1,6 @@
 const { TYPES, ATTRIBUTES } = require('../constants');
 
-module.exports.get_attribute_list = (options) => {
+const get_attribute_list = (options) => {
   const attributes = [];
   for (let i = 0; i < Object.entries(options).length; i++) {
     const [key, value] = Object.entries(options)[i];
@@ -56,4 +56,50 @@ module.exports.get_attribute_list = (options) => {
   return attributes;
 };
 
-module.exports.name_regex = new RegExp('^([A-Za-z0-9-]+)(([A-Za-z0-9-]+)?)+$');
+const get_attribute_option = (attribute) => {
+  switch (attribute) {
+    case ATTRIBUTES.AWS_ACCESS_KEY_ID: {
+      return 'access_key';
+    }
+    case ATTRIBUTES.AWS_SECRET_ACCESS_KEY: {
+      return 'secret_access_key';
+    }
+    case ATTRIBUTES.REGION: {
+      return 'region';
+    }
+    case ATTRIBUTES.OUTPUT: {
+      return 'output';
+    }
+    case ATTRIBUTES.CLI_TIMESTAMP_FORMAT: {
+      return 'cli_timestamp_format';
+    }
+    case ATTRIBUTES.CLI_FOLLOW_URLPARAM: {
+      return 'cli_follow_urlparam';
+    }
+    case ATTRIBUTES.CA_BUNDLE: {
+      return 'ca_bundle';
+    }
+    case ATTRIBUTES.PARAMETER_VALIDATION: {
+      return 'parameter_validation';
+    }
+    case ATTRIBUTES.TCP_KEEPALIVE: {
+      return 'tcp_keepalive';
+    }
+    case ATTRIBUTES.MAX_ATTEMPTS: {
+      return 'max_attempts';
+    }
+    case ATTRIBUTES.RETRY_MODE: {
+      return 'retry_mode';
+    }
+    default:
+      break;
+  }
+};
+
+const name_regex = new RegExp('^([A-Za-z0-9-]+)(([A-Za-z0-9-]+)?)+$');
+
+module.exports = {
+  name_regex,
+  get_attribute_list,
+  get_attribute_option,
+};
