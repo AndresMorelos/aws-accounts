@@ -36,7 +36,7 @@ npm i manage-aws-credentials
 | secret_access_key    | aws_secret_access_key | String         | null    |
 | region               | region                | String         | null    |
 | output               | output                | String         | json    |
-| cli_timestamp_format | cli_timestamp_format  | String         | none    |
+| cli_timestamp_format | cli_timestamp_format  | String         | wire    |
 | cli_follow_urlparam  | cli_follow_urlparam   | Boolean        | true    |
 | ca_bundle            | ca_bundle             | String | Path | null    |
 | parameter_validation | parameter_validation  | Boolean        | true    |
@@ -62,7 +62,7 @@ npm i manage-aws-credentials
 | secret_access_key    | aws_secret_access_key | String         | null    |
 | region               | region                | String         | null    |
 | output               | output                | String         | json    |
-| cli_timestamp_format | cli_timestamp_format  | String         | none    |
+| cli_timestamp_format | cli_timestamp_format  | String         | wire    |
 | cli_follow_urlparam  | cli_follow_urlparam   | Boolean        | true    |
 | ca_bundle            | ca_bundle             | String | Path | null    |
 | parameter_validation | parameter_validation  | Boolean        | true    |
