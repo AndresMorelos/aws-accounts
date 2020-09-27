@@ -4,9 +4,10 @@ const {
   deserialize_dump_credentials: deserializeDumpCredentials,
   import_dump_credentials: importDumpCredentials,
   add_profile_dump_credentials: addProfileDumpCredentials,
-  serialize_credentials: serializeCredentials,
+  serialize_credentials_as_text: serializeCredentialsAsText,
   edit_profile_dump_credentials: editProfileDumpCredentials,
   delete_profile_dump_credentials: deleteProfileDumpCredentials,
+  serialize_credentials_as_object: serializeCredentialsAsObject,
 } = require('./constants');
 
 beforeEach(() => {
@@ -32,10 +33,18 @@ describe('Test parser functionality', () => {
     assert.deepStrictEqual(parser.getCredentials(), addProfileDumpCredentials);
   });
 
-  it('Serialize the loaded profiles', () => {
-    parser.deserialize_credentials('./test/objects/credentials');
-    const credentialsSerialized = parser.serialize_credentials();
-    assert.strictEqual(credentialsSerialized, serializeCredentials);
+  describe('Serialize the loaded profiles', () => {
+    it('as a text', () => {
+      parser.deserialize_credentials('./test/objects/credentials');
+      const credentialsSerialized = parser.serialize_credentials();
+      assert.strictEqual(credentialsSerialized, serializeCredentialsAsText);
+    });
+
+    it('as a object', () => {
+      parser.deserialize_credentials('./test/objects/credentials');
+      const credentialsSerialized = parser.serialize_credentials('object');
+      assert.deepStrictEqual(credentialsSerialized, serializeCredentialsAsObject);
+    });
   });
 
   it('Save loaded credentials', () => {
