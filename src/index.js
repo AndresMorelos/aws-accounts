@@ -230,6 +230,23 @@ class Parser {
     }
   }
 
+  switch_profile(name) {
+    if (name) {
+      if (this.credentials && Array.isArray(this.credentials) && this.credentials.length > 0) {
+        const profile = this.serialize_credentials('object').filter(
+          (_profile) => _profile.name === `[${name}]`
+        );
+        if (profile.length === 1) {
+          delete profile[0].name;
+          this.edit_profile('default', profile[0]);
+          return true;
+        }
+        throw new Error(`The profile ${name} doesn't exists`);
+      }
+    }
+    throw new Error(`A name needs to be given`);
+  }
+
   save_file() {
     if (this.credentials.length > 0) {
       const profiles = this.serialize_credentials();

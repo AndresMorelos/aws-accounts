@@ -296,6 +296,116 @@ module.exports = {
       ],
     },
   ],
+  switch_profile_personal_account: [
+    {
+      type: 'PROFILE',
+      name: '[default]',
+      attributes: [
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_access_key_id',
+          value: '<PERSONAL_ACCESS_KEY_ID>',
+        },
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_secret_access_key',
+          value: '<PERSONAL_SECRET_ACCESS_KEY>',
+        },
+      ],
+    },
+    {
+      type: 'PROFILE',
+      name: '[personal-account]',
+      attributes: [
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_access_key_id',
+          value: '<PERSONAL_ACCESS_KEY_ID>',
+        },
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_secret_access_key',
+          value: '<PERSONAL_SECRET_ACCESS_KEY>',
+        },
+      ],
+    },
+    {
+      type: 'PROFILE',
+      name: '[work-account]',
+      attributes: [
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_access_key_id',
+          value: '<WORK_ACCESS_KEY_ID>',
+        },
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_secret_access_key',
+          value: '<WORK_SECRET_ACCESS_KEY>',
+        },
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_secret_access_key_TEST',
+          value: '<WORK_SECRET_ACCESS_KEY_TEST>',
+        },
+      ],
+    },
+  ],
+  switch_work_personal_account: [
+    {
+      type: 'PROFILE',
+      name: '[default]',
+      attributes: [
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_access_key_id',
+          value: '<WORK_ACCESS_KEY_ID>',
+        },
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_secret_access_key',
+          value: '<WORK_SECRET_ACCESS_KEY>',
+        },
+      ],
+    },
+    {
+      type: 'PROFILE',
+      name: '[personal-account]',
+      attributes: [
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_access_key_id',
+          value: '<PERSONAL_ACCESS_KEY_ID>',
+        },
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_secret_access_key',
+          value: '<PERSONAL_SECRET_ACCESS_KEY>',
+        },
+      ],
+    },
+    {
+      type: 'PROFILE',
+      name: '[work-account]',
+      attributes: [
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_access_key_id',
+          value: '<WORK_ACCESS_KEY_ID>',
+        },
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_secret_access_key',
+          value: '<WORK_SECRET_ACCESS_KEY>',
+        },
+        {
+          type: 'ATTRIBUTE',
+          key: 'aws_secret_access_key_TEST',
+          value: '<WORK_SECRET_ACCESS_KEY_TEST>',
+        },
+      ],
+    },
+  ],
   serialize_credentials_as_text:
     '[default]\n' +
     'aws_access_key_id = <DEFAULT_ACCESS_KEY_ID>\n' +

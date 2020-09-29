@@ -9,6 +9,8 @@ const {
   edit_profile_dump_credentials_attribute: editProfileDumpCredentialsAttribute,
   delete_profile_dump_credentials: deleteProfileDumpCredentials,
   serialize_credentials_as_object: serializeCredentialsAsObject,
+  switch_profile_personal_account: switchProfilePersonalAccount,
+  switch_work_personal_account: switchWorkPersonalAccount,
 } = require('./constants');
 
 beforeEach(() => {
@@ -38,6 +40,14 @@ describe('Test parser functionalities', () => {
     parser.import_credentials('./test/objects/credentials.json');
     parser.delete_profile('personal-account');
     assert.deepStrictEqual(parser.getCredentials(), deleteProfileDumpCredentials);
+  });
+
+  it('Switch default profile', () => {
+    parser.import_credentials('./test/objects/credentials.json');
+    parser.switch_profile('personal-account');
+    assert.deepStrictEqual(parser.getCredentials(), switchProfilePersonalAccount);
+    parser.switch_profile('work-account');
+    assert.deepStrictEqual(parser.getCredentials(), switchWorkPersonalAccount);
   });
 
   it('Save loaded credentials', () => {
