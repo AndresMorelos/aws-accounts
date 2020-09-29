@@ -5,9 +5,23 @@
 [![Version](https://img.shields.io/npm/v/manage-aws-credentials.svg?style=flat-square)](https://www.npmjs.com/package/manage-aws-credentials)
 [![npm](https://img.shields.io/npm/dw/manage-aws-credentials?style=flat-square)](https://www.npmjs.com/package/manage-aws-credentials)
 
+* [How to install](#how-to-install)
+* [How to use](#how-to-use)
+  + [Load profiles from an existing file](#load-profiles-from-an-existing-file)
+  + [Get profiles serialized](#get-profiles-serialized)
+    - [As a Object](#as-a-object)
+    - [As a Text](#as-a-text)
+  + [Add a new profile](#add-a-new-profile)
+  + [Edit a existing profile](#edit-a-existing-profile)
+  + [Switch to an existing profile](#switch-to-an-existing-profile)
+  + [Remove a profile](#remove-a-profile)
+  + [Save the current profiles to the aws file](#save-the-current-profiles-to-the-aws-file)
+  + [Import JSON profile file](#import-json-profile-file)
+  + [Export JSON profile file](#export-json-profile-file)
+
 ### How to install?
 
-```sh
+``` sh
 npm i manage-aws-credentials
 ```
 
@@ -15,7 +29,7 @@ npm i manage-aws-credentials
 
 ### Load profiles from an existing file
 
-```js
+``` js
 const AWSCredentials = require('manage-aws-credentials');
 
 AWSCredentials.deserialize_credentials('./path/to/the/file');
@@ -29,7 +43,7 @@ AWSCredentials.deserialize_credentials('./path/to/the/file');
 
 #### As a Object
 
-```js
+``` js
 const AWSCredentials = require('manage-aws-credentials');
 
 AWSCredentials.serialize_credentials('object');
@@ -37,7 +51,7 @@ AWSCredentials.serialize_credentials('object');
 
 #### As a Text
 
-```js
+``` js
 const AWSCredentials = require('manage-aws-credentials');
 
 AWSCredentials.serialize_credentials('text');
@@ -45,7 +59,7 @@ AWSCredentials.serialize_credentials('text');
 
 ### Add a new profile
 
-```js
+``` js
 const AWSCredentials = require('manage-aws-credentials');
 
 AWSCredentials.add_profile('PROFILE-NAME', options);
@@ -71,7 +85,7 @@ AWSCredentials.add_profile('PROFILE-NAME', options);
 
 ### Edit a existing profile
 
-```js
+``` js
 const AWSCredentials = require('manage-aws-credentials');
 
 AWSCredentials.edit_profile('PROFILE-NAME', options);
@@ -96,9 +110,17 @@ AWSCredentials.edit_profile('PROFILE-NAME', options);
 | retry_mode           | retry_mode            | String  | null    |
 | new_name             |                       | String  | null    |
 
+### Switch to an existing profile
+
+``` js
+const AWSCredentials = require('manage-aws-credentials');
+
+AWSCredentials.switch_profile('NAME');
+```
+
 ### Remove a profile
 
-```js
+``` js
 const AWSCredentials = require('manage-aws-credentials');
 
 AWSCredentials.delete_profile('NAME');
@@ -106,7 +128,7 @@ AWSCredentials.delete_profile('NAME');
 
 ### Save the current profiles to the aws file
 
-```js
+``` js
 const AWSCredentials = require('manage-aws-credentials');
 
 AWSCredentials.save_file();
@@ -116,7 +138,7 @@ AWSCredentials.save_file();
 
 ### Import JSON profile file
 
-```js
+``` js
 const AWSCredentials = require('manage-aws-credentials');
 
 AWSCredentials.import_credentials('./path/to/the/file.json');
@@ -126,7 +148,7 @@ AWSCredentials.import_credentials('./path/to/the/file.json');
 
 ### Export JSON profile file
 
-```js
+``` js
 const AWSCredentials = require('manage-aws-credentials');
 
 AWSCredentials.export_credentials('./path/to/the/location/');
