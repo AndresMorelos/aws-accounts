@@ -107,7 +107,7 @@ awsAccounts.saveFile();
 ``` js
 const { awsAccounts } = require('aws-accounts');
 
-awsAccounts.import_credentials('./path/to/the/file.json');
+awsAccounts.importCredentials('./path/to/the/file.json');
 ```
 
 > **NOTE:** The JSON file to import needs to satisfy the package serialization
@@ -117,7 +117,7 @@ awsAccounts.import_credentials('./path/to/the/file.json');
 ``` js
 const { awsAccounts } = require('aws-accounts');
 
-awsAccounts.export_credentials('./path/to/the/location/');
+awsAccounts.exportCredentials('./path/to/the/location/');
 ```
 
 
