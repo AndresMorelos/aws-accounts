@@ -34,6 +34,8 @@ export class Manager {
             options.tcp_keepalive,
             options.max_attempts,
             options.retry_mode))
+
+        return this
     }
 
     /**
@@ -41,7 +43,7 @@ export class Manager {
      * @param name : Name of the profile to edit
      * @param options : Options object for a profile
      */
-    editProfile(name: string, options: EditProfileOptions) {
+    editProfile(name: string, options: EditProfileOptions): Manager {
         if (this.credentials && Array.isArray(this.credentials) && this.credentials.length > 0) {
             this.credentials = this.credentials.map((profile) => {
                 if (profile.getName() === name) {
@@ -50,6 +52,7 @@ export class Manager {
                 return profile;
             })
         }
+        return this
     }
 
 
@@ -57,19 +60,21 @@ export class Manager {
      * 
      * @param name : Name of the profile to delete
      */
-    deleteProfile(name: string) {
+    deleteProfile(name: string): Manager {
         if (this.credentials && Array.isArray(this.credentials) && this.credentials.length > 0) {
             this.credentials = this.credentials.filter((profile) => {
                 return profile.getName() !== name
             });
         }
+
+        return this
     }
 
     /**
      * 
      * @param name : Name of the profile that will be the new default
      */
-    switchProfile(name: string) {
+    switchProfile(name: string): Manager {
         if (name) {
             if (this.credentials && Array.isArray(this.credentials) && this.credentials.length > 0) {
                 const profileResult: Array<Profile> = this.credentials.filter(
@@ -79,12 +84,14 @@ export class Manager {
                     const profile = profileResult[0].toJSON();
                     delete profile.name;
                     this.editProfile('default', profile);
-                    return true;
+                    return this;
                 }
                 throw new Error(`The profile ${name} doesn't exists`);
             }
+        } else {
+            throw new Error(`A name needs to be given`);
         }
-        throw new Error(`A name needs to be given`);
+        return this
     }
 
     /**
@@ -164,7 +171,7 @@ export class Manager {
      * @param path : Path where the file to import is located
      * 
      */
-    importCredentials(profilesFilePath: string): void {
+    importCredentials(profilesFilePath: string): Manager {
         try {
             // Read json file
             const fileData = fs.readFileSync(profilesFilePath, 'utf-8');
@@ -186,8 +193,9 @@ export class Manager {
                 profile.max_attempts,
                 profile.retry_mode))
 
-
         } catch (error) { }
+
+        return this
     }
 
     /**
