@@ -1,6 +1,6 @@
 {
   "name": "aws-accounts",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "Manage your AWS credentials programatically",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,7 +9,8 @@
     "prepublish": "tsc"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

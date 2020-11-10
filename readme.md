@@ -7,9 +7,11 @@
 
 * [How to install](#how-to-install)
 * [How to use](#how-to-use)
+  + [Chainable methods](#chainable-methods)
+    - [Allowed methods](#allowed-methods)
   + [Load profiles from an existing file](#load-profiles-from-an-existing-file)
   + [Get profiles serialized](#get-profiles-serialized)
-    - [As a Object](#as-a-object)
+    - [As a JSON/Object](#as-a-json)
     - [As a Text](#as-a-text)
   + [Add a new profile](#add-a-new-profile)
   + [Edit a existing profile](#edit-a-existing-profile)
@@ -18,6 +20,7 @@
   + [Save the current profiles to the aws file](#save-the-current-profiles-to-the-aws-file)
   + [Import JSON profile file](#import-json-profile-file)
   + [Export JSON profile file](#export-json-profile-file)
+  + [Accepted Options](#accepted-options)
 
 ### How to install?
 
@@ -26,6 +29,42 @@ npm i aws-accounts
 ```
 
 ## How to use?
+
+### Chainable methods
+
+This module permits some methods to be chainable to use in the next way:
+
+
+```js
+const { awsAccounts } = require('aws-accounts');
+
+// Add profile and save on one line
+awsAccounts.addProfile(options).saveFile();
+```
+
+insetad of 
+
+
+```js
+const { awsAccounts } = require('aws-accounts');
+
+// Add profile
+awsAccounts.addProfile(options)
+
+// Save changes
+awsAccounts.saveFile();
+```
+
+#### Allowed methods
+
+| Method            |
+---------------------
+| addProfile        |
+| editProfile       |
+| deleteProfile     |
+| switchProfile     |
+| importCredentials |
+
 
 ### Load profiles from an existing file
 
@@ -54,7 +93,7 @@ awsAccouts.getCredentials('JSON');
 ``` js
 const { awsAccouts } = require('aws-accounts');
 
-awsAccouts.serialize_credentials('TEXT');
+awsAccouts.serializeCredentials('TEXT');
 ```
 
 ### Add a new profile
