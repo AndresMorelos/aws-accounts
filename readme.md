@@ -58,7 +58,7 @@ awsAccounts.saveFile();
 #### Allowed methods
 
 | Method            |
----------------------
+|-------------------|
 | addProfile        |
 | editProfile       |
 | deleteProfile     |
@@ -78,7 +78,7 @@ awsAccounts.deserializeCredentials('./path/to/the/file');
 
 ### Get profiles serialized
 
-> **Note:** By default the profiles are serialized as a text
+> **Note:** By default the profiles are serialized as a JSON/OBJECT
 
 #### As a JSON
 
