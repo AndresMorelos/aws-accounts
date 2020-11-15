@@ -1,6 +1,6 @@
 {
   "name": "aws-accounts",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Manage your AWS credentials programatically",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
