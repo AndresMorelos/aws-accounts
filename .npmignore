@@ -1,3 +1,7 @@
 src
 node_modules
 AWS_credentials_dump*
+.github
+.eslintrc.json
+.prettierrc
+tsconfig.json
