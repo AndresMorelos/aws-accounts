@@ -9,6 +9,7 @@ export class Manager {
     private defaultDirectory = path.join(os.homedir(), '.aws');
     private defaultPath = path.join(this.defaultDirectory, 'credentials');
     private credentials: Array<Profile> = [];
+    private autoSave: boolean = false
     public regions = REGIONS;
     public CredentialExportsType = CredentialExports;
 
@@ -35,6 +36,9 @@ export class Manager {
             options.max_attempts,
             options.retry_mode))
 
+        if (this.autoSave) {
+            this.saveFile()
+        }
         return this
     }
 
@@ -52,6 +56,9 @@ export class Manager {
                 return profile;
             })
         }
+        if (this.autoSave) {
+            this.saveFile()
+        }
         return this
     }
 
@@ -66,7 +73,9 @@ export class Manager {
                 return profile.getName() !== name
             });
         }
-
+        if (this.autoSave) {
+            this.saveFile()
+        }
         return this
     }
 
@@ -84,6 +93,9 @@ export class Manager {
                     const profile = profileResult[0].toJSON();
                     delete profile.name;
                     this.editProfile('default', profile);
+                    if (this.autoSave) {
+                        this.saveFile()
+                    }
                     return this;
                 }
                 throw new Error(`The profile ${name} doesn't exists`);
@@ -193,6 +205,9 @@ export class Manager {
                 profile.max_attempts,
                 profile.retry_mode))
 
+            if (this.autoSave) {
+                this.saveFile()
+            }
         } catch (error) { }
 
         return this
@@ -279,6 +294,18 @@ export class Manager {
 
     cleanCredentials(): void {
         this.credentials = []
+
+        if (this.autoSave) {
+            this.saveFile()
+        }
     }
 
+    toggleAutoSave(): Manager {
+        this.autoSave = !this.autoSave
+        return this
+    }
+
+    getAutoSave(): boolean {
+        return this.autoSave
+    }
 }
