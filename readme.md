@@ -7,6 +7,7 @@
 
 * [How to install](#how-to-install)
 * [How to use](#how-to-use)
+  + [Auto Save](#auto-save)
   + [Chainable methods](#chainable-methods)
     - [Allowed methods](#allowed-methods)
   + [Load profiles from an existing file](#load-profiles-from-an-existing-file)
@@ -29,6 +30,18 @@ npm i aws-accounts
 ```
 
 ## How to use?
+
+### Auto Save 
+
+```js
+const { awsAccounts } = require('aws-accounts');
+
+// Toggle auto save option, default value false
+awsAccounts.toggleAutoSave();
+
+ // The profile will be automatically saved on the credentials file
+awsAccounts.addProfile(options);
+```
 
 ### Chainable methods
 
@@ -64,6 +77,7 @@ awsAccounts.saveFile();
 | deleteProfile     |
 | switchProfile     |
 | importCredentials |
+| toggleAutoSave    |
 
 
 ### Load profiles from an existing file
